@@ -93,14 +93,31 @@ Import `PayWithFlutterwave` from `flutterwave-react-native` and use it like so.
 import {PayWithFlutterwave} from 'flutterwave-react-native';
 // or import PayWithFlutterwave from 'flutterwave-react-native';
 
+  const handleOnRedirect = () => {
+    console.log("sadi");
+  };
+
+  //a function to generate a random transaction reference
+  const transactionReference = (length) => {
+    var a =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split(
+        ""
+      );
+    var b = [];
+    for (var i = 0; i < length; i++) {
+      var j = (Math.random() * (a.length - 1)).toFixed(0);
+      b[i] = a[j];
+    }
+    return b.join("");
+  };
+
 <PayWithFlutterwave
-  ...
   onRedirect={handleOnRedirect}
   options={{
-    tx_ref: transactionReference,
+    tx_ref: transactionReference(11),
     authorization: '[merchant public key]',
     customer: {
-      email: 'customer-email@example.com'
+      email: 'customer-email@example.com' // flutterwave account email
     },
     amount: 2000,
     currency: 'NGN',
